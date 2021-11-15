@@ -88,18 +88,19 @@ void Thunderborg::Init(bool tryOtherBus) {
 
 bool Thunderborg::SetMotor1(float power) {
     char command = 0;
-    char pwm = 0;
+    int pwm_int = 0;
     if (power < 0) {
         // Reverse
         command = COMMAND_SET_A_REV;
-        pwm = -(PWM_MAX * power);
-        if (pwm > PWM_MAX) pwm = PWM_MAX;
+        pwm_int = -(PWM_MAX * power);
+        if (pwm_int > PWM_MAX) pwm_int = PWM_MAX;
     } else {
         // Forward / stopped
         command = COMMAND_SET_A_FWD;
-        pwm = (PWM_MAX * power);
-        if (pwm > PWM_MAX) pwm = PWM_MAX;
+        pwm_int = (PWM_MAX * power);
+        if (pwm_int > PWM_MAX) pwm_int = PWM_MAX;
     }
+    char pwm = (char) pwm_int;
     if (RawWrite(command, &pwm, 1) != 2) {
         debug_printf("Failed sending motor 1 drive level!\n");
         return false;
@@ -126,18 +127,19 @@ float Thunderborg::GetMotor1() {
 
 bool Thunderborg::SetMotor2(float power) {
     char command = 0;
-    char pwm = 0;
+    int pwm_int = 0;
     if (power < 0) {
         // Reverse
         command = COMMAND_SET_B_REV;
-        pwm = -(PWM_MAX * power);
-        if (pwm > PWM_MAX) pwm = PWM_MAX;
+        pwm_int = -(PWM_MAX * power);
+        if (pwm_int > PWM_MAX) pwm_int = PWM_MAX;
     } else {
         // Forward / stopped
         command = COMMAND_SET_B_FWD;
-        pwm = (PWM_MAX * power);
-        if (pwm > PWM_MAX) pwm = PWM_MAX;
+        pwm_int = (PWM_MAX * power);
+        if (pwm_int > PWM_MAX) pwm_int = PWM_MAX;
     }
+    char pwm = (char) pwm_int;
     if (RawWrite(command, &pwm, 1) != 2) {
         debug_printf("Failed sending motor 2 drive level!\n");
         return false;
@@ -164,18 +166,19 @@ float Thunderborg::GetMotor2() {
 
 bool Thunderborg::SetMotors(float power) {
     char command = 0;
-    char pwm = 0;
+    int pwm_int = 0;
     if (power < 0) {
         // Reverse
         command = COMMAND_SET_ALL_REV;
-        pwm = -(PWM_MAX * power);
-        if (pwm > PWM_MAX) pwm = PWM_MAX;
+        pwm_int = -(PWM_MAX * power);
+        if (pwm_int > PWM_MAX) pwm_int = PWM_MAX;
     } else {
         // Forward / stopped
         command = COMMAND_SET_ALL_FWD;
-        pwm = (PWM_MAX * power);
-        if (pwm > PWM_MAX) pwm = PWM_MAX;
+        pwm_int = (PWM_MAX * power);
+        if (pwm_int > PWM_MAX) pwm_int = PWM_MAX;
     }
+    char pwm = (char) pwm_int;
     if (RawWrite(command, &pwm, 1) != 2) {
         debug_printf("Failed sending motor 1 drive level!\n");
         return false;
